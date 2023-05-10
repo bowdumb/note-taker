@@ -1,9 +1,15 @@
+const express = require('express');
+const app = express();
+
 // Sets the default page
-app.get('/', function (req, res) {
+app.get('/', (req, res) => {
     res.sendFile(path.join(_dirname, '../public/index.html'))
   });
   
-  app.get('/notes', function (req,res) {
+// Sets the GET path for '/notes'
+  app.get('/notes', (req,res) => {
     res.sendFile(path.join(_dirname, '../public/notes.html'));
   });
   
+
+module.exports = app;

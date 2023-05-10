@@ -1,9 +1,12 @@
 const express = require('express');
-const app = express();
-const path = require('path');
-const fs = require('fs');
-const noteData = require('./db/db.json');
 
+const path = require('path');
+const app = express();
+
+
+const apiRoutes  = require('./routes/api');
+app.use(apiRoutes);
+// const htmlRoute = require('./routes.html.js');
 
 
 const PORT = process.env.PORT || 3001;
@@ -13,6 +16,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 
+// app.use(htmlRoute);
+// app.use(require('./routes/html'));
 
 // Enables the static use of our 'public' folder which will contain all of the frontend content.
 app.use(express.static('public'));
