@@ -9,7 +9,7 @@ let noteData = require('../db/db.json');
 
 // GET route for the API/Notes
 app.get('/api/notes', (req,res) => {
-    noteData = JSON.parse(fs.readFileSync('../db/db.json', 'utf-8'));
+    noteData = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'db', 'db.json'), 'utf-8'));
           res.json(noteData);
           console.log(noteData);
       });
@@ -30,13 +30,15 @@ app.post('/api/notes', (req, res) => {
 
 
 
-(fs.writeFile('./db/db.json', JSON.stringify(noteData), err => {
-    if(err) {
-        console.log('Error Will Robinson!');
-    }
-})
-
-)});
+    fs.writeFile(path.join(__dirname, '..', 'db', 'db.json'), JSON.stringify(noteData), err => {
+        if (err) {
+          console.log('Error writing file:', err);
+          res.status(500).send('Error writing file');
+          return;
+        }
+        res.sendStatus(200);
+      });
+    });
 
 
 
