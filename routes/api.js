@@ -34,7 +34,7 @@ app.post('/api/notes', (req, res) => {
       return;
     }
     const newNote = {
-      unique_id: uuidv4(),
+      id: uuidv4(),
       title: req.body.title,
       text: req.body.text,
       
@@ -52,5 +52,32 @@ app.post('/api/notes', (req, res) => {
   });
 });
 
+app.delete('/api/notes/:id', (req, res) => {
+  const noteForDeleting = req.params.id;
+  const deleteDB = [];
+  for (let i = 0; i < noteData.length; i++) {
+    if (noteData[i].id != noteForDeleting) {
+      deleteDB.push(noteData[i]);
+    }
+  }
+  noteData = deleteDB;
+
+  fs.writeFile(path.join(__dirname, '..', 'db', 'db.json'), JSON.stringify(noteData, null, 2), function (err) {
+    if (err) {
+      console.error(err);
+    } else {
+      console.info('Successfully deleted your note.');
+    }
+    res.json(noteData);
+});
+});
+
 
 module.exports = app
+
+// app.delete('/api/notes/:unique_id', (req, res) => {
+//   const noteId = req.params.unique_id;
+//   fs.readFile(path.join(__dirname, '..', 'db', 'db.json'), 'utf-8', (err, data) => {
+//     const filterNote = JSON.parse(data);
+//     const afterDelete = filterNote.filter((note) => note.id !== noteId);
+    
