@@ -4,7 +4,7 @@ const app = require('express').Router();
 const util = require('util');
 const express = require('express');
 
-// const uuid = require('../uuid');
+const { v4: uuidv4 } = require('uuid');
 
 let noteData = require('../db/db.json');
 
@@ -34,8 +34,10 @@ app.post('/api/notes', (req, res) => {
       return;
     }
     const newNote = {
+      unique_id: uuidv4(),
       title: req.body.title,
-      text: req.body.text
+      text: req.body.text,
+      
     };
     noteData.push(newNote);
 
