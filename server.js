@@ -28,5 +28,5 @@ app.use(express.static('public'));
 
 
 app.listen(PORT, () => {
-    console.log(`Example app listening at http://localhost:${PORT}`);
+    console.log(`Note-Taker is listening at http://localhost:${PORT}`);
   });

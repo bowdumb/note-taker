@@ -46,7 +46,7 @@ app.post('/api/notes', (req, res) => {
       if (err) {
         console.error(err);
       } else {
-        console.info(`Successfully posted your note about ${req.body.title}!`);
+        console.info(`Successfully posted your note titled: ${req.body.title}!`);
       }
       res.json(noteData);
     });
